@@ -21,5 +21,11 @@ private:
 	bool *gameOver;
 	int screenWidth;
 	int screenHeight;
+	struct Rect {
+		float topLeftX;
+		float topLeftY;
+		float bottomLeftX;
+		float bottomLeftY;
+	};
 };
 

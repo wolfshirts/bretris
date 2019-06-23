@@ -6,7 +6,7 @@ GameManager::GameManager(Paddle* paddle, Ball* ball, bool* gameOver, int screenW
 {
 	this->paddle = paddle;
 	this->ball = ball;
-	this->tile = new Tile((screenWidth/2), 40, 100, 10);
+	this->tile = new Tile((screenWidth/2 - 100/2), 40, 100, 10); //place the temporary tile in the center of the screen.
 	this->gameOver = gameOver;
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
@@ -63,14 +63,16 @@ bool GameManager::paddle_can_move_right(int distance)
 void GameManager::detect_collision()
 {
 	//Check if ball has collided with tile.
-	//if the ball x >= tile top left, and the balls x <= tilesX+width
-	//and the ball y <= tile y + height and the ball y 
-	if (ball->get_ball_x() >= tile->get_x() && ball->get_ball_x() <= tile->get_x() + tile->get_width() &&
-		ball->get_ball_y() <= tile->get_y() + tile->get_height() ) {
+	if (ball->get_ball_x() >= tile->get_x() && ball->get_ball_x() <= tile->get_x() + tile->get_width() && //are we in the X
+		ball->get_ball_y() <= tile->get_y() + tile->get_height() && ball->get_ball_y() >= tile->get_y()) {
+		std::cout << "Tile collision" << std::endl;
+		int newVelo = ball->get_ball_x_velo();
+		ball->ball_change_x_velocity(newVelo);
 		ball->ball_change_y_velocity(abs(ball->get_ball_y_velo()));
 		tile->take_hit();
-		std::cout << "tile collision" << std::endl;
 	}
+
+	
 	//Check if ball has collided with the edge of the screen.
 	if (ball->get_ball_x() + ball->get_size() >= screenWidth) {
 		int newVelo = -ball->get_ball_x_velo();

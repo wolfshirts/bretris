@@ -53,7 +53,7 @@ void Tile::take_hit()
 
 void Tile::draw()
 {
-	al_draw_filled_rectangle(topLeftX, topLeftY, width, height, this->blockColor);
+	al_draw_filled_rectangle(topLeftX, topLeftY, topLeftX + width, topLeftY + height, this->blockColor);
 }
 
 int Tile::get_x()
