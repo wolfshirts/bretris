@@ -21,11 +21,8 @@ private:
 	bool *gameOver;
 	int screenWidth;
 	int screenHeight;
-	struct Rect {
-		float topLeftX;
-		float topLeftY;
-		float bottomLeftX;
-		float bottomLeftY;
-	};
+	void detect_paddle_collision();
+	void detect_tile_collision();
+	void detect_screen_collision();
 };
 

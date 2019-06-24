@@ -5,50 +5,30 @@
 
 Tile::Tile(int topLeftX, int topLeftY, int width, int height)
 {
-	colors myColors;
+	
 	this->topLeftX = topLeftX;
 	this->topLeftY = topLeftY;
 	this->width = width;
 	this->height = height;
 	srand(time(NULL));
-	switch (rand() % 3)
-	{
-	case 0:
-		this->blockColor = myColors.blue;
-		break;
-	case 1:
-		this->blockColor = myColors.orange;
-		break;
-	case 2:
-		this->blockColor = myColors.red;
-	default:
-		this->blockColor = al_map_rgb(255, 255, 255);
-		break;
-	}
+	int element = rand() % colorVector.size();
+	this->elementNumber = element;
+	this->blockColor = colorVector[element];
 }
 
 void Tile::take_hit()
 {
-	colors potential;
 	if (this->hitCounter > 2) {
-		this->topLeftX = -300; //We're just moving these offscreen if they're gone.
-		this->topLeftY = -300; //They need to be properly deleted! This is for testing only!!!!
+		this->isDestroyed = true;
 	}
 	this->hitCounter += 1;
-	switch (rand() % 3 )
-	{
-	case 0:
-		this->blockColor = potential.red;
-		break;
-	case 1:
-		this->blockColor = potential.blue;
-		break;
-	case 2:
-		this->blockColor = potential.orange;
-	default:
-		this->blockColor = al_map_rgb(255, 255, 255);
-		break;
+	if(this->elementNumber + 1 == colorVector.size()){
+		elementNumber = 0;
 	}
+	else {
+		this->elementNumber += 1;
+	}
+	this->blockColor = colorVector[elementNumber];
 }
 
 void Tile::draw()
